@@ -6,6 +6,12 @@ Built for Japan IT Week 2026 at the Advantech booth to demonstrate the differenc
 
 ---
 
+> **⚠️ SAFETY WARNING**
+>
+> This is a **stationary demonstration only**. The drone does not fly. **Remove all propellers before running any script.** The motors spin to demonstrate that AI detection controls physical actuators - they are not configured for flight. Actual flight-capable scripts with proper safety checks, failsafes, and GPS/altitude hold are not included and would need to be developed separately.
+
+---
+
 ## What It Does
 
 A camera watches the scene. When the YOLOv8 model detects a **clock**, the drone motors speed up. Move the clock left or right and the drone yaws to follow. Remove the clock and the motors drop back to idle.
