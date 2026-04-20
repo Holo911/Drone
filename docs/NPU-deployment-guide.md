@@ -19,12 +19,27 @@ The Qualcomm HTP NPU requires models in TensorFlow Lite format with INT8 quantiz
 
 Full quantization guide: [Advantech EdgeAI Workflow](https://github.com/ADVANTECH-Corp/EdgeAI_Workflow/blob/main/ai_system/qualcomm/aom-dk2721/linux/object_detection_demo-using-qc_ai_hub.md)
 
-> **Shortcut:** A pre-quantized `yolov8_det.tflite` and `labels.txt` are included in the `model/` directory of this repository. Copy them to the directory the scripts expect:
+> **Shortcut:** A pre-quantized `yolov8n_det.tflite` and `labels.txt` are included in the `model/` directory of this repository. Copy them to the directory the scripts expect:
 > ```bash
-> cp model/yolov8_det.tflite model/labels.txt ~/ai-hub/EdgeAI_Workflow/ai_system/qualcomm/aom-dk2721/linux/script/
+> cp model/yolov8n_det.tflite model/labels.txt ~/ai-hub/EdgeAI_Workflow/ai_system/qualcomm/aom-dk2721/linux/script/
 > ```
 
+### Other Available Models
+
+Additional pre-quantized models are included in the `model/` directory. To use a different model, copy it to the scripts directory and update the `MODEL_FILE` variable in the Python scripts or the `model=` parameter in the shell scripts. All models use the same tensor output format and require no other script changes.
+
+| File | Architecture | Size |
+|------|-------------|------|
+| `yolov8n_det.tflite` | YOLOv8 nano | 3.3 MB |
+| `yolov8s_det.tflite` | YOLOv8 small | 11.0 MB |
+| `yolov8m_det.tflite` | YOLOv8 medium | 25.2 MB |
+| `yolov8l_det.tflite` | YOLOv8 large | 42.4 MB |
+| `yolov11n_det.tflite` | YOLOv11 nano | 2.8 MB |
+| `yolov11s_det.tflite` | YOLOv11 small | 9.5 MB |
+
 The model file is placed on the board alongside a `labels.txt` file containing the 80 COCO class names (included in `scripts/`).
+
+
 
 ---
 
@@ -149,7 +164,7 @@ gst-launch-1.0 -e v4l2src device="/dev/video2" ! queue ! tee name=split \
     ! qtimlvconverter ! queue ! qtimltflite delegate=external \
     external-delegate-path=libQnnTFLiteDelegate.so \
     external-delegate-options="QNNExternalDelegate,backend_type=htp;" \
-    model=yolov8_det_quantized.tflite ! queue \
+    model=yolov8n_det_quantized.tflite ! queue \
     ! qtimlvdetection threshold=10.0 results=10 module=yolov8 \
     labels=coco_labels.txt \
     constants="YOLOv8,q-offsets=<20.0,0.0,0.0>,q-scales=<3.14,0.004,1.0>;" \
@@ -181,7 +196,7 @@ gst-launch-1.0 -e \
     ! qtimltflite delegate=external \
       external-delegate-path=libQnnTFLiteDelegate.so \
       external-delegate-options="QNNExternalDelegate,backend_type=htp;" \
-      model=yolov8_det.tflite \
+      model=yolov8n_det.tflite \
     ! qtimlpostprocess \
       module=yolov8 \
       labels=labels.txt \
@@ -218,7 +233,7 @@ gst-launch-1.0 -e \
     ! qtimltflite delegate=external \
       external-delegate-path=libQnnTFLiteDelegate.so \
       external-delegate-options="QNNExternalDelegate,backend_type=htp;" \
-      model=yolov8_det.tflite \
+      model=yolov8n_det.tflite \
     ! qtimlpostprocess \
       module=yolov8 \
       labels=labels.txt \
@@ -235,7 +250,7 @@ gst-launch-1.0 -e \
 
 The core inference path is identical between Yocto and Ubuntu. The differences are only in the surrounding I/O plumbing.
 
-- Same TFLite model file (`yolov8_det.tflite`)
+- Same TFLite model file (`yolov8n_det.tflite`)
 - Same QNN HTP delegate (`libQnnTFLiteDelegate.so`)
 - Same NPU hardware (Hexagon 770, 12.3 TOPS)
 - Same GStreamer inference elements (`qtimlvconverter`, `qtimltflite`)

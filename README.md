@@ -96,6 +96,33 @@ https://github.com/ADVANTECH-Corp/EdgeAI_Workflow/blob/main/ai_system/qualcomm/a
 
 ---
 
+## Available Models
+
+Pre-quantized INT8 TFLite models for the Hexagon NPU are included in the `model/` directory:
+
+| File | Architecture | Size |
+|------|-------------|------|
+| `yolov8n_det.tflite` | YOLOv8 nano | 3.3 MB |
+| `yolov8s_det.tflite` | YOLOv8 small | 11.0 MB |
+| `yolov8m_det.tflite` | YOLOv8 medium | 25.2 MB |
+| `yolov8l_det.tflite` | YOLOv8 large | 42.4 MB |
+| `yolov11n_det.tflite` | YOLOv11 nano | 2.8 MB |
+| `yolov11s_det.tflite` | YOLOv11 small | 9.5 MB |
+
+The default is `yolov8n_det.tflite`. To use a different model, change the `MODEL_FILE` variable at the top of any NPU script:
+
+```python
+MODEL_FILE = "yolov8s_det.tflite"  # ← change this
+```
+
+Then copy the model to the scripts directory:
+
+```bash
+cp model/yolov8s_det.tflite ~/ai-hub/EdgeAI_Workflow/ai_system/qualcomm/aom-dk2721/linux/script/
+```
+
+---
+
 ## Measured Performance
 
 | Metric | CPU | NPU |
