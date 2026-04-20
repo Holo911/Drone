@@ -29,6 +29,9 @@ import signal
 # ─────────────────────────────────────────────────────────
 #  CONFIG
 # ─────────────────────────────────────────────────────────
+
+MODEL_FILE = "yolov8n_det.tflite"
+
 CAMERA_DEVICE    = "/dev/video2"
 FRAME_W, FRAME_H = 640, 480
 MODEL_INPUT_SIZE = 640
@@ -290,7 +293,7 @@ def main():
             '! qtimltflite delegate=external '
             '  external-delegate-path=libQnnTFLiteDelegate.so '
             '  external-delegate-options="QNNExternalDelegate,backend_type=htp;" '
-            '  model=yolov8_det.tflite '
+            f'  model={MODEL_FILE} '
             '! appsink name=tensor_sink max-buffers=2 drop=true sync=false emit-signals=false '
         )
     else:
@@ -317,7 +320,7 @@ def main():
             '! qtimltflite delegate=external '
             '  external-delegate-path=libQnnTFLiteDelegate.so '
             '  external-delegate-options="QNNExternalDelegate,backend_type=htp;" '
-            '  model=yolov8_det.tflite '
+            f'  model={MODEL_FILE} '
             '! tee name=tensor_tee '
 
             # ── Tensor appsink (Python reads raw detections) ──

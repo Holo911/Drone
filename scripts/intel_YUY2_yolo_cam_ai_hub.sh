@@ -22,7 +22,7 @@ gst-launch-1.0 -e \
     ! qtimltflite delegate=external \
       external-delegate-path=libQnnTFLiteDelegate.so \
       external-delegate-options="QNNExternalDelegate,backend_type=htp;" \
-      model=yolov8_det.tflite \
+      model=yolov8n_det.tflite \
     ! qtimlpostprocess \
       module=yolov8 \
       labels=labels.txt \
