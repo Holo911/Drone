@@ -106,8 +106,10 @@ Pre-quantized INT8 TFLite models for the Hexagon NPU are included in the `model/
 | `yolov8s_det.tflite` | YOLOv8 small | 11.0 MB |
 | `yolov8m_det.tflite` | YOLOv8 medium | 25.2 MB |
 | `yolov8l_det.tflite` | YOLOv8 large | 42.4 MB |
+| `yolov8x_det.tflite` | YOLOv8 extra-large | 67.5 MB |
 | `yolov11n_det.tflite` | YOLOv11 nano | 2.8 MB |
 | `yolov11s_det.tflite` | YOLOv11 small | 9.5 MB |
+| `yolov11m_det.tflite` | YOLOv11 medium | 20.3 MB |
 
 The default is `yolov8n_det.tflite`. To use a different model, change the `MODEL_FILE` variable at the top of any NPU script:
 
